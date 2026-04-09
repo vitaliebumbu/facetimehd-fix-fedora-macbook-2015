@@ -1,0 +1,35 @@
+FaceTime HD Camera Fix on Fedora running on MacBook Pro 2015
+=============================================================
+
+This repository is a self-contained distribution of the FaceTime HD
+camera Linux driver, with patches that fix the frozen-frame bug on
+kernel 6.15+.
+
+It contains code from the following upstream projects:
+
+1. patjak/facetimehd  (the V4L2 kernel driver)
+   https://github.com/patjak/facetimehd
+   License: GPL-2.0-only
+   Authors: Patrik Jakobsson, Sven Schnelle, and contributors
+   Location in this repo: driver/
+
+2. patjak/facetimehd-firmware  (the firmware extraction tooling)
+   https://github.com/patjak/facetimehd-firmware
+   License: GPL-2.0
+   Authors: Patrik Jakobsson and contributors
+   Location in this repo: firmware-extractor/
+
+The vendored copies preserve all upstream copyright notices and
+license headers. Files modified by this repository are marked at
+the top of the file with a "Modified ... by vitaliebumbu" notice
+listing the changes, in compliance with GPL-2.0 §2(a).
+
+This repository does NOT contain Apple's proprietary firmware blob.
+The firmware-extractor downloads it directly from Apple's update
+servers at install time, the same way the upstream tooling does.
+
+For a list of changes made in this repository, see CHANGES.md.
+For the list of all contributors, see AUTHORS.
+
+This project is licensed under GPL-2.0-only. See LICENSE for the
+full text.

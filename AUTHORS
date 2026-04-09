@@ -1,0 +1,22 @@
+Authors and Contributors
+========================
+
+Upstream driver (patjak/facetimehd)
+-----------------------------------
+- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>  - Original driver
+- Sven Schnelle <svens@stackframe.org>             - V4L2 layer
+- Contributors listed in the upstream git history at
+  https://github.com/patjak/facetimehd
+
+Upstream firmware extractor (patjak/facetimehd-firmware)
+--------------------------------------------------------
+- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+- Contributors listed at
+  https://github.com/patjak/facetimehd-firmware
+
+This repository
+---------------
+- vitaliebumbu <https://github.com/vitaliebumbu>
+  - Patches for kernel 6.15+ frozen-frame bug
+  - Self-contained installer
+  - Fedora 43 / MacBook Pro Mid-2015 testing

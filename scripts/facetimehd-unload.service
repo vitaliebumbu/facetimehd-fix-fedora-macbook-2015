@@ -1,0 +1,11 @@
+[Unit]
+Description=Unload FaceTime HD camera driver before sleep
+Before=sleep.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'modprobe -r facetimehd'
+ExecStartPost=/bin/bash -c 'sleep 1 && modprobe facetimehd || true'
+
+[Install]
+WantedBy=sleep.target
