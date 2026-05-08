@@ -2,7 +2,7 @@
 
 Fix the **frozen / single-frame FaceTime HD webcam** on **Fedora Linux** (kernel 6.15+) running on an **Apple MacBook Pro 2015**. One command, fully self-contained, no manual patching.
 
-> Keywords: facetime hd camera linux fix, macbook pro 2015 webcam fedora, broadcom 1570 fedora driver, facetimehd kernel 6.15, facetimehd kernel 6.19, macbookpro11,4 camera linux, gnome camera black screen macbook, cheese frozen frame macbook fedora.
+> Keywords: facetime hd camera linux fix, macbook pro 2015 webcam fedora, broadcom 1570 fedora driver, facetimehd kernel 6.15, facetimehd kernel 6.19, facetimehd fedora 44, macbookpro11,4 camera linux, gnome camera black screen macbook, cheese frozen frame macbook fedora.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/vitaliebumbu/facetimehd-fix-fedora-macbook-2015/main/install-remote.sh | sudo bash
@@ -16,7 +16,7 @@ That's it. Run the line above on your MacBook running Fedora and the camera will
 
 The Linux **FaceTime HD camera driver** (`facetimehd`, for the Broadcom 1570 PCIe webcam in 2013-2015 MacBooks) loads fine on modern kernels and creates `/dev/video0`, but the video **freezes after the very first frame**. GNOME Camera shows a still image, Cheese is stuck, Zoom shows a black or frozen preview, and `dmesg` is suspiciously quiet.
 
-This is a regression that affects **kernel 6.15 and newer**, including Fedora 41/42/43, Ubuntu 24.10+, Arch, openSUSE Tumbleweed, and any other distro with a recent kernel.
+This is a regression that affects **kernel 6.15 and newer**, including Fedora 41/42/43/44, Ubuntu 24.10+, Arch, openSUSE Tumbleweed, and any other distro with a recent kernel.
 
 This repository ships a **self-contained, patched build** of the driver that fixes the bug.
 
@@ -39,8 +39,8 @@ The patched driver in this repo schedules buffer submission via a workqueue (so 
 | **RAM** | 16 GB DDR3L |
 | **GPU** | Intel Iris Pro |
 | **Camera** | Broadcom 720p FaceTime HD (PCIe `14e4:1570`) |
-| **OS** | Fedora Linux 43 Workstation |
-| **Kernel** | 6.19.10-200.fc43.x86_64 |
+| **OS** | Fedora Linux 44 Workstation (also tested on Fedora 43) |
+| **Kernel** | 6.19.14-300.fc44.x86_64 (also tested on 6.19.10-200.fc43) |
 | **Desktop** | GNOME on Wayland |
 
 Should work on any distro with kernel 6.15+ on these MacBook models:
@@ -133,6 +133,18 @@ This is **cosmetic**. The camera works without the per-sensor calibration file. 
 ### Image is green / inverted after install
 
 Do a full **power off** (not reboot) and boot back up. The ISP firmware sometimes gets into a bad state that only a cold boot clears.
+
+### Camera stopped working after a Fedora or kernel update
+
+The driver is compiled against a specific kernel version. When DNF installs a new kernel (e.g. fc43 → fc44), the old `facetimehd.ko` does not carry over — you need to rebuild it for the new kernel.
+
+Re-running the one-line installer is enough:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/vitaliebumbu/facetimehd-fix-fedora-macbook-2015/main/install-remote.sh | sudo bash
+```
+
+It will install `kernel-devel` for the running kernel, recompile the module, and reload it. Takes about a minute.
 
 ### Camera stops working after suspend
 
